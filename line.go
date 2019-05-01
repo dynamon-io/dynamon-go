@@ -6,8 +6,8 @@ type Point struct {
 }
 
 type Line struct {
-	Title  string  `json:"title"`
-	Points []Point `json:"points"`
+	LegendLabel string  `json:"legendLabel"`
+	Points      []Point `json:"points"`
 }
 
 // PlotLine plots a line.
@@ -22,14 +22,14 @@ func PlotLine(path string, xs, ys []float64, opts Opts) {
 	api(path, payload{
 		Widgets: []widget{
 			widget{
-				Type:   "line",
-				Title:  opts.Title,
-				XLabel: opts.XLabel,
-				YLabel: opts.YLabel,
+				Type:       "line",
+				Title:      opts.Title,
+				XAxisLabel: opts.XAxisLabel,
+				YAxisLabel: opts.YAxisLabel,
 				Lines: []Line{
 					Line{
-						Title:  opts.Legend,
-						Points: points,
+						LegendLabel: opts.LegendLabel,
+						Points:      points,
 					},
 				},
 			},
@@ -46,14 +46,14 @@ func PlotLines(path string, xs []float64, yss [][]float64, opts Opts) {
 			points[j] = Point{X: xs[j], Y: yss[i][j]}
 		}
 
-		legend := ""
-		if len(opts.Legends) > i {
-			legend = opts.Legends[i]
+		legendLabel := ""
+		if len(opts.LegendLabels) > i {
+			legendLabel = opts.LegendLabels[i]
 		}
 
 		line := Line{
-			Title:  legend,
-			Points: points,
+			LegendLabel: legendLabel,
+			Points:      points,
 		}
 		lines[i] = line
 	}
@@ -61,11 +61,11 @@ func PlotLines(path string, xs []float64, yss [][]float64, opts Opts) {
 	api(path, payload{
 		Widgets: []widget{
 			widget{
-				Type:   "line",
-				Title:  opts.Title,
-				XLabel: opts.XLabel,
-				YLabel: opts.YLabel,
-				Lines:  lines,
+				Type:       "line",
+				Title:      opts.Title,
+				XAxisLabel: opts.XAxisLabel,
+				YAxisLabel: opts.YAxisLabel,
+				Lines:      lines,
 			},
 		},
 	})
@@ -76,11 +76,11 @@ func PlotLinesStructured(path string, lines []Line, opts Opts) {
 	api(path, payload{
 		Widgets: []widget{
 			widget{
-				Type:   "line",
-				Title:  opts.Title,
-				XLabel: opts.XLabel,
-				YLabel: opts.YLabel,
-				Lines:  lines,
+				Type:       "line",
+				Title:      opts.Title,
+				XAxisLabel: opts.XAxisLabel,
+				YAxisLabel: opts.YAxisLabel,
+				Lines:      lines,
 			},
 		},
 	})
