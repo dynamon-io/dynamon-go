@@ -8,14 +8,13 @@ import (
 	"os"
 )
 
-type point struct {
-	X float64 `json:"x"`
-	Y float64 `json:"y"`
-}
-
-type line struct {
-	Title  string  `json:"title"`
-	Points []point `json:"points"`
+// Opts specifies dynamon plot options.
+type Opts struct {
+	Title   string
+	XLabel  string
+	YLabel  string
+	Legend  string   // Used for PlotLine
+	Legends []string // Used for PlotLines
 }
 
 type widget struct {
@@ -23,7 +22,7 @@ type widget struct {
 	Title  string `json:"title"`
 	XLabel string `json:"xLabel"`
 	YLabel string `json:"yLabel"`
-	Lines  []line `json:"lines"`
+	Lines  []Line `json:"lines"`
 }
 
 type payload struct {
